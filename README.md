@@ -5,7 +5,7 @@ Everything related to the courses given to the MOC 3A about nodeJS.
   -> var let const
   -> fonctions, => ()
   -> this
-  -> promesses, callbacks
+  -> callbacks, promesses
 
 2) Node JS
   -> http server
