@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/julien-sarazin/MOC-js/issues"
   },
-  "homepage": "https://github.com/julien-sarazin/MOC-js#readme"
+  "homepage": "https://github.com/julien-sarazin/MOC-js#readme",
+  "dependencies": {
+    "uuid": "^3.2.1"
+  }
 }
