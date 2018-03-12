@@ -1,0 +1,19 @@
+{
+  "name": "moc",
+  "version": "1.0.0",
+  "description": "Everything related to the courses given to the MOC 3A about nodeJS.",
+  "main": "playground.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julien-sarazin/MOC-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julien-sarazin/MOC-js/issues"
+  },
+  "homepage": "https://github.com/julien-sarazin/MOC-js#readme"
+}
