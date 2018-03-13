@@ -1,0 +1,321 @@
+{
+	"info": {
+		"name": "MoCassins",
+		"_postman_id": "2c364b27-ab63-47b5-b943-4672a7be6c1e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9aad97b6-721b-464f-abfe-5721f7368c45",
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable(\"user_id\", JSON.parse(responseBody)[0]._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"hello6helllo\",\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/users/{{user_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/users/{{user_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cars",
+			"description": "",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "35263d6b-d9cf-45c4-b8ee-94d9b5a771f6",
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable(\"car_id\", JSON.parse(responseBody)[0]._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"hello6helllo\",\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/cars",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"hello6helllo\",\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/cars",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"hello6helllo\",\n\t\"firstname\": \"Leo\",\n\t\"lastname\" : \"Pouled\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/cars/{{car_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"{{car_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/cars/{{car_id}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cars",
+								"{{car_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"description": "",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8aa27bf8-9398-48f9-81e1-4302005573c0",
+								"type": "text/javascript",
+								"exec": [
+									"postman.setEnvironmentVariable(\"token\", responseBody);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"hello6helllo\",\n\t\"passrod\": \"Leo\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

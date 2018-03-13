@@ -2,11 +2,18 @@ module.exports = server => {
     const Car = server.models.Car;
 
     return {
+        show,
         list,
         create,
         update,
         remove
     };
+
+    function show(req, res, next) {
+        Car.findById(req.params.id)
+            .then(car => res.send(car))
+            .catch(error => res.status(500).send(error))
+    }
 
     function list(req, res, next) {
         Car.find()

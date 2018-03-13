@@ -4,11 +4,18 @@ module.exports = server => {
     const User = server.models.User;
 
     return {
+        show,
         list,
         create,
         update,
         remove
     };
+
+    function show(req, res, next) {
+        User.findById(req.params.id)
+            .then(user => res.send(user))
+            .catch(error => res.status(500).send(error))
+    }
 
     function list(req, res, next) {
         User.find()

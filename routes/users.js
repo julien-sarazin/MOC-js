@@ -2,6 +2,10 @@ const router = require('express').Router();
 
 module.exports = server => {
     router
+        .get('/:id',
+            server.controllers.users.show
+        )
+
         .get('/',
             server.controllers.users.list
         )
