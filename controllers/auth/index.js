@@ -7,7 +7,7 @@ module.exports = server => {
 
     return {
         login,
-        logout
+        decryptToken
     };
 
     function login(req, res, next) {
@@ -18,7 +18,7 @@ module.exports = server => {
                 username: req.body.username,
                 password: sha1(req.body.password)
             })
-            .then(u => user = u || Promise.reject({code: 404, message: 'user not found'}))
+            .then(u => user = u || Promise.reject({ code: 404, message: 'user not found' }))
             .then(ensureTokenHasNotBeenSet)
             .then(encrypt)
             .then(encryptedToken => res.send(encryptedToken))
@@ -41,8 +41,23 @@ module.exports = server => {
             })
         }
     }
+    function decryptToken(encryptedToken) {
+        if (!encryptedToken)
+            return Promise.reject({code: 401, message: 'unauthorized'});
 
-    function logout() {
+        return decrypt()
+            .then(ensureExists);
 
+        function decrypt() {
+            return new Promise((resolve, reject) => {
+                jwt.verify(encryptedToken, server.settings.secret, (err, decryptedToken) => err ? reject(err) : resolve(decryptedToken))
+            });
+        }
+
+        function ensureExists(decryptedToken) {
+            return Token.findById(decryptedToken)
+                .populate('user')
+                .then(token => token ? token.user : Promise.reject(new Error('not Found')))
+        }
     }
 };

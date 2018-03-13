@@ -11,6 +11,11 @@ const CarSchema = Schema({
         type: String,
         required: true,
         default: 'White'
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 
