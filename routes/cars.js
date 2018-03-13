@@ -7,10 +7,12 @@ module.exports = server => {
         )
 
         .get('/',
+            server.middlewares.ensureAuthenticated,
             server.controllers.cars.list
         )
 
         .post('/',
+            server.middlewares.ensureAuthenticated,
             server.middlewares.bodyParser.json(),
             server.controllers.cars.create
         )

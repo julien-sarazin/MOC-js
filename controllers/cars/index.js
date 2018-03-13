@@ -22,23 +22,13 @@ module.exports = server => {
     }
 
     function create(req, res, next) {
+        const data = req.body;
+        data.owner = req.user;
 
-        ensureAuthenticated()
-            .then(create)
+        return Car.create(data)
             .then(car => res.status(201).send(car))
             .catch(err => res.status(err.code || 500).send(err.message || err));
 
-        function ensureAuthenticated() {
-            const encryptedToken = req.header('authorization');
-            return server.controllers.auth.decryptToken(encryptedToken)
-        }
-
-        function create(user) {
-            const data = req.body;
-            data.owner = user;
-
-            return Car.create(data)
-        }
     }
 
     function update(req, res, next) {
