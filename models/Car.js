@@ -20,11 +20,11 @@ Car.prototype.save = function (cb) {
     if (!Cars.some(car => car._id === this._id))
         Cars.push(this);
 
-    fs.writeFile(filePath, JSON.stringify(Cars), cb);
+    fs.writeFile(filePath, Cars, cb);
 };
 
-Car.list = function () {
-    return JSON.stringify(Cars);
+Car.list = function (cb) {
+    return cb(null, Cars);
 };
 
 Car.findById = function(id) {
@@ -33,7 +33,7 @@ Car.findById = function(id) {
 
 Car.findByIdAndRemove = function (id, cb) {
     Cars = Cars.filter(car => car._id !== id);
-    return fs.writeFile(filePath, JSON.stringify(Cars), cb);
+    return fs.writeFile(filePath,Cars, cb);
 };
 
 Car.findByIdAndUpdate = function (id, data, cb) {
