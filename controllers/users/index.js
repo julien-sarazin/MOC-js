@@ -5,6 +5,7 @@ module.exports = server => {
         create: require('./create')(server),
         update: require('./update')(server),
         remove: require('./remove')(server),
-        appendCar: require('./appendCar')(server)
+        appendCar: require('./appendCar')(server),
+        pullCar: require('./pullCar')(server)
     };
 };
