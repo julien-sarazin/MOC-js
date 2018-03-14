@@ -19,16 +19,26 @@ module.exports = server => {
                 password: sha1(req.body.password)
             })
             .then(u => user = u || Promise.reject({ code: 404, message: 'user not found' }))
-            .then(ensureTokenHasNotBeenSet)
+            .then(ensureLimitNotExceeded)
             .then(encrypt)
             .then(encryptedToken => res.send(encryptedToken))
             .catch(error => res.status(error.code || 500).send(error.message || error));
 
 
-        function ensureTokenHasNotBeenSet() {
+        function ensureLimitNotExceeded() {
             return Token
-                .findOneAndRemove({ user: user.id })
+                .find()
+                .where({ user: user.id })
+                .sort('created_at')
+                .then(ensureCountNotExceeded)
                 .then(create);
+
+            function ensureCountNotExceeded(tokens) {
+                if (tokens.length < server.settings.simultaneousLoginLimit)
+                    return true;
+
+                return Token.findByIdAndRemove(tokens[0].id);
+            }
 
             function create() {
                 return Token.create({ user: user.id })
@@ -41,9 +51,10 @@ module.exports = server => {
             })
         }
     }
+
     function decryptToken(encryptedToken) {
         if (!encryptedToken)
-            return Promise.reject({code: 401, message: 'unauthorized'});
+            return Promise.reject({ code: 401, message: 'unauthorized' });
 
         return decrypt()
             .then(ensureExists);

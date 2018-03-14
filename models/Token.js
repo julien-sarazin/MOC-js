@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const TimestampPlugin = require('mongoose-timestamp');
 
 const TokenSchema = Schema({
     user: {
@@ -7,6 +8,8 @@ const TokenSchema = Schema({
         ref: 'User'
     }
 });
+
+TokenSchema.plugin(TimestampPlugin);
 
 const TokenModel = mongoose.model('Token', TokenSchema);
 
