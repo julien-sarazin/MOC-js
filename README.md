@@ -41,3 +41,5 @@ Votre API doit maintenant gerer des trajets `Trip`.
   - Quand l'utilisateur est arrive a destination, il notifiera l'API changeant le status du trajet a  `2`
   - Chaque `Car` dispose d'un nombre de places disponibles `entier > 0`
   - Evidement seul l'utilisateur proprietaire du vehicule servant au trajet peut changer le status de celui-ci
+  - Un utilisateur ne peut supprimer une voiture qui est associe a un trajet en cours
+  - Une suppression d'un vehicule entrainera la supression des trajets associees non demarres
