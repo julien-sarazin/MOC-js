@@ -1,55 +1,10 @@
-const sha1 = require('sha1');
-
 module.exports = server => {
-    const User = server.models.User;
-
     return {
-        show,
-        list,
-        create,
-        update,
-        remove,
-        appendCar
+        show: require('./show')(server),
+        list: require('./list')(server),
+        create: require('./create')(server),
+        update: require('./update')(server),
+        remove: require('./remove')(server),
+        appendCar: require('./appendCar')(server)
     };
-
-    function show(req, res, next) {
-        User.findById(req.params.id)
-            .then(user => res.send(user))
-            .catch(error => res.status(500).send(error))
-    }
-
-    function list(req, res, next) {
-        User.find()
-            .then(users => res.send(users))
-            .catch(error => res.status(500).send(error))
-    }
-
-    function create(req, res, next) {
-        const data = req.body;
-        data.password = sha1(req.body.password);
-
-        User.create(data)
-            .then(user => res.status(201).send(user))
-            .catch(error => res.status(500).send(error))
-    }
-
-    function update(req, res, next) {
-        User.findByIdAndUpdate(req.params.id, req.body)
-            .then(data => res.status(204).send())
-            .catch(error => res.status(500).send(error))
-    }
-
-    function remove(req, res, next) {
-        User.findByIdAndRemove(req.params.id)
-            .then(data => res.status(204).send())
-            .catch(error => res.status(500).send(error))
-    }
-
-    function appendCar(car) {
-        return User.findById(car.owner)
-            .then(user => {
-                user.cars = user.cars.concat(car.id);
-                return user.save();
-            });
-    }
 };
