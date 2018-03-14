@@ -8,6 +8,7 @@ module.exports = server => {
     server.models = {
         Car: require('./Car'),
         User: require('./User'),
-        Token: require('./Token')
+        Token: require('./Token'),
+        Trip: require('./Trip')
     }
 };

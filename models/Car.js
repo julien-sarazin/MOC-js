@@ -12,6 +12,11 @@ const CarSchema = Schema({
         required: true,
         default: 'White'
     },
+    seats: {
+        type: Number,
+        required: true,
+        default: 2
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',

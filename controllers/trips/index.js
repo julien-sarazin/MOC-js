@@ -5,6 +5,9 @@ module.exports = server => {
         create: require('./create')(server),
         update: require('./update')(server),
         remove: require('./remove')(server),
-        get: require('./get')(server)
+        join: require('./join')(server),
+        start: require('./start')(server),
+        finish: require('./finish')(server),
+        clean: require('./clean')(server)
     };
 };
