@@ -1,6 +1,5 @@
 module.exports = server => {
     const Car = server.models.Car;
-    const UserController = server.controllers.users;
 
     return (req, res, next) => {
         Car.findByIdAndRemove(req.params.id)
@@ -9,7 +8,7 @@ module.exports = server => {
             .catch(error => res.status(500).send(error));
 
         function pullFromOwner(car) {
-            return UserController
+            return server.controllers.users
                 .pullCar(car)
         }
     }
