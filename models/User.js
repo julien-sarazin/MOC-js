@@ -23,7 +23,11 @@ const UserSchema = Schema({
     age: {
         type: Number,
         required: false
-    }
+    },
+    cars: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Car'
+    }]
 });
 
 const User = mongoose.model('User', UserSchema);

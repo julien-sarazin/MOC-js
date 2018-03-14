@@ -32,21 +32,5 @@ Everything related to the courses given to the MOC 3A about nodeJS.
 
 Exercice 1 
 -----------------
-Developper un middleware permettant de logger chaque requete.
-    - les logs devront s'ecrirent dans le dossier `/logs`
-    - chaque jour un nouveau fichier de logs devra etre genere, le fichier correspondra au timestamp du jour en question.
-    - le format du log devrat etre [YYY-MM-DD] METHOD - url
-    
-    
-Exercice 2 
------------------
-Modifier le comportement de login actuel pour qu'un utilisateur puisse se logger depuis deux clients differents simultanement.
-    - Au login suivant, le plus ancien token devra etre ecrase.
-    
-    
-    
-    
-    
-    
-    
+Modifier la methode de suppression d'un `Car` pour que celle-ci supprime egalement sa reference au sein de son `owner`
    

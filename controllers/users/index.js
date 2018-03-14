@@ -8,7 +8,8 @@ module.exports = server => {
         list,
         create,
         update,
-        remove
+        remove,
+        appendCar
     };
 
     function show(req, res, next) {
@@ -42,5 +43,13 @@ module.exports = server => {
         User.findByIdAndRemove(req.params.id)
             .then(data => res.status(204).send())
             .catch(error => res.status(500).send(error))
+    }
+
+    function appendCar(car) {
+        return User.findById(car.owner)
+            .then(user => {
+                user.cars = user.cars.concat(car.id);
+                return user.save();
+            });
     }
 };

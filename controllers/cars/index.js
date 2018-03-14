@@ -26,9 +26,23 @@ module.exports = server => {
         data.owner = req.user;
 
         return Car.create(data)
-            .then(car => res.status(201).send(car))
-            .catch(err => res.status(err.code || 500).send(err.message || err));
+            .then(appendCarToOwner)
+            .then(car => {
+                res.status(201).send(car)
+            })
+            .catch(err => {
+                res.status(err.code || 500).send(err.message || err)
+            });
 
+        function appendCarToOwner(car) {
+            return server.controllers.users
+                .appendCar(car)
+                .then(data => {
+                    console.log('> data:', data);
+                    return car;
+                });
+
+        }
     }
 
     function update(req, res, next) {
