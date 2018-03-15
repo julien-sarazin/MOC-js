@@ -1,0 +1,17 @@
+{
+    "damage": "10",
+    "speed": "3.55",
+    "spells": [
+        {
+            "cast_on_critical_strike": ["stun"]
+        },
+        "haste",
+        {
+            "cast_on_hit": {
+                "vulnerability": {
+                    "cast_on_curse": ["ignite", "burning_ground"]
+                }
+            }
+        }
+    ]
+}

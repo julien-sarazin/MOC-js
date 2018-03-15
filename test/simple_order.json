@@ -1,0 +1,5 @@
+{
+    "damage": "10",
+    "speed": "3.55",
+    "spells": ["fireball", "haste"]
+}

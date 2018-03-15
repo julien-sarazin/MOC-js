@@ -1,45 +1,146 @@
-# MOC-js
-Everything related to the courses given to the MOC 3A about nodeJS.
+# Excelsior!
+Forgerons et Enchanteurs doivent travailler en équipe pour développer les meilleurs équipements possible.
 
-### Plan
-1) Base de JS
---------------------
-  - var let const,  
-  - fonctions, => (),  
-  - who is this?,  
-  - callbacks, promesses,  
-  
-2) Node JS
---------------------
-  - http server,  
-  - get, post, ...  
-  - body-parser, json,  
-  - routing,  
-  
-3) Express JS
---------------------
-  - middlewares,  
-  - orm/odm,  
-  - REST,  
-  
-4) Deploiment continu
---------------------
-  -> heroku + ???
+Hélas les commandes qui leurs sont faites ne sont pas toujours simples,  parfois même impossible!
+
+Votre objectif est de concevoir la formule universelle pour répondre à tout type de commande!
 
 
 
+## Règles 
 
-Exercice
----------------------
-Votre API doit maintenant gerer des trajets `Trip`.  
- 
-  - Un utilisateur peut definir un trajet allant d'un point de depart `start` a une destination `end`.
-  - Pour definir un trajet, un utilisateur doit selectionner une voiture `Car` qui lui appartient, le point de depart et le point de destination.
-  - Une fois defini, un trajet aura le `status a 0`.
-  - Lorsqu'un trajet est defini, d'autres utilisateur peuvent rejoindre ce trajet, **si et seulement si** le trajet n'est pas demarre et si le nombre de places disponibles est suffisant.
-  - Quand l'utilisateur demarre un trajet, il notifiera l'API changeant le status de celui-ci a `1`.
-  - Quand l'utilisateur est arrive a destination, il notifiera l'API changeant le status du trajet a  `2`.
-  - Chaque `Car` dispose d'un nombre de places disponibles `entier > 0`.
-  - Evidement seul l'utilisateur proprietaire du vehicule servant au trajet peut changer le status de celui-ci.
-  - Un utilisateur ne peut pas supprimer une voiture qui est associee a un trajet en cours.
-  - Une suppression d'un vehicule entrainera la supression des trajets associees non demarres.
+Format attendu d'une arme :
+
+```javascript
+{
+    speed: Float,
+    damage: Int,
+    spells: [Spell]
+}
+```
+
+Format d'un spell :
+
+```javascript
+{
+    spell: String,
+    trigger: Spell 
+}
+```
+--
+>### Attention
+>La particularité d'un `Spell` est qu'il peut déclencher d'autres `Spell`. Il est donc nécessaire de bien prévoir les relations entre les spells pour éviter une catastrophe!
+
+### Ci-dessous, des examples de commandes avec le résultat attendu: 
+
+Commande:
+
+```json
+{
+    "damage": "10",
+    "speed": "3.55",
+    "spells": ["fireball", "haste"]
+}
+```
+Résultat: 
+
+```javascript
+{
+    damage: 10,
+    speed: 3.55,
+    spells: [
+        { spell: "fireball" },
+        { spell: "haste" }
+    ]
+}
+```
+
+Commande:
+
+```json
+{
+    "damage": "4",
+    "speed": "7.28",
+    "spells": [
+        {
+            "cold_weaknesses": ["frozen_ground", "ice_bolt", "added_cold_damage"]
+        }
+    ]
+}
+```
+
+Résultat:   
+
+```javascript
+{
+    damage: 4,
+    speed: 7.28,
+    spells: [
+        { 
+            spell: "cold_weaknesses",
+            trigger: {
+                spell: "frozen_ground ice_bolt added_cold_damage"
+            }
+        }
+    ]
+}
+```
+
+
+Commande:
+
+```json
+{
+    "damage": "100",
+    "speed": "0.22",
+    "spells": [
+        {
+            "cast_on_critical_strike": ["stun"]
+        },
+        "haste",
+        {
+            "cast_on_hit": {
+                "vulnerability": {
+                    "cast_on_curse": ["ignite", "burning_ground"]
+                }
+            }
+        }
+    ]
+}
+```
+
+
+Résultat:   
+
+```javascript
+{
+    damage: 100,
+    speed: 0.22,
+    spells: [
+        { 
+            spell: "cast_on_critical_strike",
+            trigger: {
+                spell: "stun"
+            }
+        },
+        {
+            spell: "haste"
+        },
+        {
+            spell: "cast_on_hit",
+		      trigger: {
+		          spell: "vulnerability",
+		          trigger: {
+		              spell: "cast_on_curse",
+		              trigger: {
+		                  spell: "ignite burning_ground"
+		              }
+		          }
+		      }
+        }
+    ]
+}
+```
+
+
+
