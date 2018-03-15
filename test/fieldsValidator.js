@@ -5,22 +5,18 @@ function hasProperties(data, properties) {
         let str = property.split('.');
         if(str.length > 1){
             if(str[0] in data){
-                for(i = 0; i < str.length; i++){
-                    let val1 = data[str[i]];
-                    let val2 = data[str[i+1]];
+                let i = 0;
+                let val1 = data[str[i]];
+                let val2 = val1[str[i+1]];
 
-                    if(data[str[i]] === undefined)
-                        break;
-
-                    if(!(val1.hasOwnProperty(val2)))
-                        array.push(str);
-                }
+                if(val2 === undefined && i+1 <= str.length)
+                    array.push(str);
             }else{
-                array.push(str[0]);
+                array.push(str.join('.'));
             }
         }else{
             if(!(str in data)){
-                array.push(tempArr);
+                array.push(property);
             }
         }
     }));
@@ -45,27 +41,22 @@ function whitelist(data, properties) {
 }
 
 function blacklist(data, properties) {
+    let i;
+    let oldProp;
+    properties.forEach((property => {
+        let str = property.split('.');
+        if(str.length > 1){
+            for(i = 0; i < str.length; i++){
+                oldProp = data[i];
+                let prop = oldProp[i+1];
 
-}
-
-function loopInProperty(object, property){
-    let str = property;
-    let obj = object;
-    str.forEach((element) => {
-        if(obj === undefined)
-            return false;
-
-        obj = obj[element];
-
-    });
-    return true;
-}
-
-function  checkIfExist(object, property) {
-    if (!object)
-        return null;
-
-    return false;
+                delete data[prop];
+            }
+        }else{
+            if(property in data)
+                delete data[property];
+        }
+    }));
 }
 
 
