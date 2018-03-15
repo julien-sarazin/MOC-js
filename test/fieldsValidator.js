@@ -1,19 +1,47 @@
 function hasProperties(data, properties) {
     let array = [];
-    for (let property of properties) {
-        let tempArray = loopInProperty(data, property);
-        array.concat(tempArray);
-    }
+
+    properties.forEach((property => {
+        let str = property.split('.');
+        if(str.length > 1){
+            if(str[0] in data){
+                for(i = 0; i < str.length; i++){
+                    let val1 = data[str[i]];
+                    let val2 = data[str[i+1]];
+
+                    if(data[str[i]] === undefined)
+                        break;
+
+                    if(!(val1.hasOwnProperty(val2)))
+                        array.push(str);
+                }
+            }else{
+                array.push(str[0]);
+            }
+        }else{
+            if(!(str in data)){
+                array.push(tempArr);
+            }
+        }
+    }));
 
     return array;
 }
 
 function whitelist(data, properties) {
-    for(let property in data){
-        if(!(properties.includes(property)))
-            delete data[property];
+    if(!data)
+        return null;
+
+    let arr = [];
+    for(let property in properties){
+        let str = property.split('.');
+        arr.push(str[0]);
+        whitelist(data[property], property);
     }
-    return data;
+
+    for(let element in data){
+
+    }
 }
 
 function blacklist(data, properties) {
@@ -21,19 +49,25 @@ function blacklist(data, properties) {
 }
 
 function loopInProperty(object, property){
-    let str = property.split('.');
+    let str = property;
     let obj = object;
-    let arr = [];
     str.forEach((element) => {
         if(obj === undefined)
             return false;
 
-        if(!(element in obj))
-            obj = obj[element];
-            arr.push(element);
+        obj = obj[element];
+
     });
-    return arr;
+    return true;
 }
+
+function  checkIfExist(object, property) {
+    if (!object)
+        return null;
+
+    return false;
+}
+
 
 module.exports = {
     hasProperties,
