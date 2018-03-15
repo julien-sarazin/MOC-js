@@ -24,16 +24,19 @@ function hasProperties(data, properties) {
     }
   });
 
-  if(nok !== 0){
+  /*if(nok !== 0){
     return missingFiled;
-  }
+  }*/
   return [];
 }
 
 function whitelist(data, properties) {
 
   for(var property in data){
-    if(!(properties.includes(property))) {
+    /*if(!(properties.includes(property))) {
+      delete data[property];
+    }*/
+    if (properties[property] !== property) {
       delete data[property];
     }
   }
@@ -43,7 +46,7 @@ function whitelist(data, properties) {
 
 function blacklist(data, properties) {
 
-  for(let property in data){
+  for(var property in data){
     if(properties[data[property]] !== null ) {
       delete data[property];
     }
