@@ -38,37 +38,49 @@ function hasProperties(data, properties) {
 
 function whitelist(data, properties) {
     //should remove everything from data that is not in given properties array'
+    let arrayProperties = [];
 
-   /* for(keys in data) {
-        console.log(keys);
-    }
+    properties.forEach(property => {
+        const splitProperty = property.split('.');
+        arrayProperties = arrayProperties.concat(splitProperty);
+    });
 
-    for(keys in data){
-        if(!properties.includes(keys)){
+    console.log("arrayProperties : " + arrayProperties);
+
+    for (keys in data) {
+        if (!arrayProperties.find(prop => prop == keys)) {
             delete data[keys];
         }
     }
-    return data;
-*/
-
 }
-
-
 
 function blacklist(data, properties) {
    //should remove everything from data that is in given properties array
 
+    let arrayProperties = [];
 
-    /*let length = properties.length + 1;
+    properties.forEach(property => {
+        const splitProperty = property.split('.');
+        arrayProperties = arrayProperties.concat(splitProperty);
+    });
 
-    for(keys in data){
-        for(let i = 0; i < length; i++){
-            delete data[properties[i]];
+    for (keys of properties) {
+        for(var i = 0; i < properties.length; i++) {
+            if (data[keys] !== undefined || arrayProperties[i] !== data[keys]) {
+                delete data[keys];
+            }
         }
-    }*/
+    }
+    console.log(properties);
+    console.log(data);
+    console.log(arrayProperties);
 
+    console.log("attendu : field, foo: {bar: { bal} } ");
+
+    return data;
 
 }
+
 
 
 module.exports = {
