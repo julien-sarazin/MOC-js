@@ -13,8 +13,8 @@ const _ = require('lodash');
 }*/
 
 function hasProperties(data, properties) {
-  console.log("data =" ,data);
-  console.log("=>",properties);
+  //console.log("data =" ,data);
+  //console.log("=>",properties);
   let missing = [];
 
   for(i = 0; i<properties.length; i++){
@@ -32,7 +32,11 @@ function hasProperties(data, properties) {
 }
 
 function whitelist(data, properties) {
-  for (const field in data) {
+  console.log("data => ", data);
+  //console.log("prop => ", properties);
+  for (let field in data) {
+    console.log("field =>",field);
+    console.log(data[field]["salt"] != undefined);
       if (!properties.find(p => p == field)) {
           delete data[field];
       }
