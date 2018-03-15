@@ -3,13 +3,11 @@ function hasProperties(data, properties) {
 
     if (Array.isArray(data)) {
         data.forEach(obj => missingFields.push(hasProperties(obj, properties)));
+
         let originalLength = missingFields.length;
-        for(let i = 0; i < originalLength; i+=1 ) {
+        for(let i = 0; i < originalLength; i+=1 )
             missingFields[i].forEach(field => missingFields.push(`[${i}].${field}`));
-        }
-        for(let i = 0; i < originalLength; i+=1 ) {
-            missingFields.shift();
-        }
+        for(let i = 0; i < originalLength; i+=1 ) missingFields.shift();
 
         return missingFields;
     }
