@@ -39,16 +39,14 @@ function whitelist(data, properties) {
             propies.shift();
             propies = propies.join('.');
             data[property] = whitelist(data[property], [propies]);
-        } else {
+        } else
             newProperties.push(property);
-        }
     });
 
-    for (let key in data) {
+    for (let key in data)
         if(data.hasOwnProperty(key))
             if(!newProperties.includes(key))
                 delete data[key];
-    }
 
     return data;
 }
