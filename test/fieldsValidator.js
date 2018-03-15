@@ -25,7 +25,8 @@ function whitelist(data, properties) {
 function blacklist(data, properties) {
     function listArr(obj, proper){
         for (let key in obj) {
-            if(properties.includes(key))
+            console.log(key);
+            if(proper.includes(key))
                 delete obj[key];
             //console.log(key, obj[key]);
             //console.log('type', typeof(obj[key]));
@@ -34,13 +35,21 @@ function blacklist(data, properties) {
             }
         }
     }
-    listArr(data, properties);
+    //listArr(data, properties);
 
     for(let i =0; i<properties.length; i++){
-        if(properties[i].match(/./g))
-            console.log(properties[i]);
-    }
+            //console.log(typeof(properties[i]));
+            if(properties[i].match(/\./g)){
+                let proper = properties[i].split('.');
+                //console.log(proper[proper.length-1]);
+                listArr(data, proper[proper.length-1]);
+            } else {
+                //console.log(properties[i]);
+                listArr(data, properties[i]);
+            }
 
+    }
+    /*
     function getLastProper(obj){
         for (let key in obj) {
             console.log(obj);
@@ -51,7 +60,7 @@ function blacklist(data, properties) {
             }
         }
     }
-
+*/
     /*
     function recursivelyIterateProperties(data, property) {
 
