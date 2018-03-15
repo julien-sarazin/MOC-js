@@ -1,27 +1,44 @@
 function hasProperties(data, properties) {
-    const missingFields = [];
+    let missingFields = [];
+
+    if (Array.isArray(data)) {
+        data.forEach(obj => missingFields.push(hasProperties(obj, properties)));
+        let originalLength = missingFields.length;
+        for(let i = 0; i < originalLength; i+=1 ) {
+            missingFields[i].forEach(field => missingFields.push(`[${i}].${field}`));
+        }
+        for(let i = 0; i < originalLength; i+=1 ) {
+            missingFields.shift();
+        }
+
+        return missingFields;
+    }
+
     properties.forEach(prop => {
-       propies = prop.split('.');
-       if(data.hasOwnProperty(propies[0])) {
-           if(propies.length == 1)
-               return [];
-           let newData = data;
+        propies = prop.split('.');
+        if(data.hasOwnProperty(propies[0])) {
+            if(propies.length == 1)
+                return [];
+            let newData = data;
 
 
-           for(var i = 1; i < propies.length; i+=1){
-               newData = newData[propies[i - 1]] ;
+            for(var i = 1; i < propies.length; i+=1){
+                newData = newData[propies[i - 1]] ;
                 if(!newData.hasOwnProperty(propies[i])) {
                     propies.slice(i,propies.length - 1).join('.');
                     missingFields.push(propies[i]);
                 }
-           }
-       } else {
-           missingFields.push(propies.join('.'));
-       }
+            }
+        } else {
+            missingFields.push(propies.join('.'));
+        }
     });
 
     return missingFields;
 }
+
+/*
+* */
 
 function whitelist(data, properties) {
     let newProperties = [];
