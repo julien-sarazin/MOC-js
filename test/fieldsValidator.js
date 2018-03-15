@@ -17,18 +17,10 @@ function hasProperties(data, properties) {
     properties.forEach(prop => {
         propies = prop.split('.');
         if(data.hasOwnProperty(propies[0])) {
-            if(propies.length == 1)
-                return [];
-            let newData = data;
+            let p = propies[0];
+            propies.shift();
 
-
-            for(var i = 1; i < propies.length; i+=1){
-                newData = newData[propies[i - 1]] ;
-                if(!newData.hasOwnProperty(propies[i])) {
-                    propies.slice(i,propies.length - 1).join('.');
-                    missingFields.push(propies[i]);
-                }
-            }
+            missingFields.concat(hasProperties(data[p], propies));
         } else {
             missingFields.push(propies.join('.'));
         }
