@@ -1,7 +1,8 @@
 function hasProperties(data, properties) {
     let array = [];
     for (let property of properties) {
-        loopInProperty(data.field, property);
+        let tempArray = loopInProperty(data, property);
+        array.concat(tempArray);
     }
 
     return array;
@@ -21,14 +22,17 @@ function blacklist(data, properties) {
 
 function loopInProperty(object, property){
     let str = property.split('.');
-    let i;
     let obj = object;
-    for(i = 1; i < str.length; i++){
-        if(!(str[i] in obj))
-            obj = obj[str[i]];
+    let arr = [];
+    str.forEach((element) => {
+        if(obj === undefined)
             return false;
-    }
-    return true;
+
+        if(!(element in obj))
+            obj = obj[element];
+            arr.push(element);
+    });
+    return arr;
 }
 
 module.exports = {
