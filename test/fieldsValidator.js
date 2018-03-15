@@ -44,24 +44,19 @@ function whitelist(data, properties) {
     if(!(properties.includes(property))){
       delete data[property];
     }
+    delete data[property];
   }
 
   return data;
 }
 
 function blacklist(data, properties) {
-  /*for(var property in data){
-    if(properties.includes(property)){
+
+  for(var property in data){
+    if(data.hasOwnProperty(property)) {
       delete data[property];
     }
-  }*/
-
-
-  properties.forEach(property => {
-    if(!(property in data))
-      delete data[property];
-  });
-
+  }
   return data;
 }
 
