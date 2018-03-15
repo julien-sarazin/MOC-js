@@ -1,8 +1,8 @@
 function hasProperties(data, properties) {
-    var arr = new Array();
+    let arr = new Array();
 
     for(let i=0; i<properties.length; i++){
-        if(data.hasOwnProperty(properties[1]))
+        if(!data.hasOwnProperty(properties[1]))
             arr.push(properties[i]);
     }
 
