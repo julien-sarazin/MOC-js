@@ -1,5 +1,5 @@
 function hasProperties(data, properties) {
-    return {}
+
 
 }
 
