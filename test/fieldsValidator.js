@@ -7,7 +7,6 @@ function hasProperties(data, properties) {
     }
 
     return arr;
-
 }
 
 function whitelist(data, properties) {
