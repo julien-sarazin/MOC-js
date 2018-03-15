@@ -1,29 +1,40 @@
 function hasProperties(data, properties) {
-    var arr = new Array();
+    if (!data) 
+        return properties;
 
-    for(let i=0; i<properties.length; i++){
-        if(data.hasOwnProperty(properties[1]))
-            arr.push(properties[i]);
+    const props = split(properties);
+    const missings = [];
+
+    
+    props.forEach(function(prop, i) {
+        
+        var receivedData = data;
+
+        for (var j = 0, lenght = prop.length; j < length; j++) {
+            let property = prop[j];
+            if (property in receivedData) {
+                property = prop[property];
+            }
+            else if (!missings.includes(props[i])) {
+                missings.push(props[i]);
+            }
+        }
+    });
+    
+    function split(properties) {
+        return properties.map(property => property.split('.'));
     }
-    return arr;
 
+    return missings;
 }
 
 function whitelist(data, properties) {
-    let nbr = properties.length + 1;
-    for(keys in data){
-        for(let i=0; i<nbr; i++) {
-            if (keys !== properties[i])
-                delete data[keys];
-        }
-    }
+    
 }
 
 function blacklist(data, properties) {
-    let nbr = properties.length + 1;
-    for(let i=0; i<nbr; i++){
-        delete data[properties[i]];
-    }
+    
+
 }
 
 
