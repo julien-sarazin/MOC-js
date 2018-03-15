@@ -1,33 +1,41 @@
 function hasProperties(data, properties) {
 
-    // var fields = [];
-  
-    // for (var property of properties) {
-
-    //     //let p = property.split('.', 10);
-
-    //     if (data[property] === undefined) {
-
-    //         fields.push(property);
-    //     }   
-    // }
-
-    // return fields;
-
-    console.log(data.length);
-
     var fields = [];
 
-    allProperties = splitProperties(properties);
-    //console.log(allProperties);
+    if (data.length > 1) {
+        allProperties = splitProperties(properties);
 
-    for (var property of allProperties) {
+        var index = 0;
+        for (var datas in data) {
+            fields = fields.concat(filledArray(data[datas], allProperties, index));
+            index++;
+        }
 
+        console.log(fields);
+
+        function filledArray(data, allProperties, index) {
+            var fields = [];
+            console.log(data);
+            for (var field in data) {
+                console.log("debug 1.",index);
+                if (allProperties.find(property => property == field)) {
+                    console.log("debug");
+                    fields.push("[",index,"].",data[field]);
+                }
+            }
+            return fields;
+        }
+    } 
+    else {
+        for (var property of properties) {
+
+            if (data[property]) {
+                fields.push(property);
+            }   
+        }
     }
 
     return fields;
-
-
 
 }
 
@@ -44,27 +52,29 @@ function whitelist(data, properties) {
 
 function blacklist(data, properties) {
 
-    var allProperties = splitProperties(properties);
-    for (var key in data) {
 
-        for (property of allProperties) {
-            if (key == property) {
-                if (data[key])
-                {
-                    blacklist(data[key], properties);
-                }
-                else {
-                    delete data[key];
-                }
-            }
+
+   var allProperties = [];
+
+   properties.forEach(property => llProperties.push(property.split('.') );
+
+    for (var property of properties) {
+
+        if (data[property] != undefined) {
+            delete data[property];
+        }
+        else {
+
         }
     }
 
+
     return data;
+
 }
 
 function splitProperties(properties) {
-   
+
     var allProperties = [];
 
     properties.forEach(property => {
