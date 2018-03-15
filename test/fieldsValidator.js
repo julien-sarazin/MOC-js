@@ -22,10 +22,7 @@ function blacklist(data, properties) {
    //should remove everything from data that is in given properties array
 
     for(keys in data){
-        for(key in keys){
-            console.log("keys : " + keys + "\n");
-            console.log("key : " + key + "\n");
-        }
+      
 
     }
 
