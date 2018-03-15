@@ -11,33 +11,29 @@ function hasProperties(data, properties) {
             index++;
         }
 
-        console.log(fields);
-
         function filledArray(data, allProperties, index) {
             var fields = [];
-            console.log(data);
+
             for (var field in data) {
-                console.log("debug 1.",index);
-                if (allProperties.find(property => property == field)) {
-                    console.log("debug");
+                if (allProperties.find(property => property == field))
                     fields.push("[",index,"].",data[field]);
-                }
+
             }
             return fields;
         }
     } 
     else {
         for (var property of properties) {
-
-            if (data[property]) {
+            if (data[property])
                 fields.push(property);
-            }   
         }
     }
 
     return fields;
-
 }
+
+
+
 
 function whitelist(data, properties) {
 
@@ -52,25 +48,27 @@ function whitelist(data, properties) {
 
 function blacklist(data, properties) {
 
-
-
    var allProperties = [];
 
-   properties.forEach(property => llProperties.push(property.split('.') );
+   properties.forEach(property => {
+       allProperties.push(property.split('.'))
+   });
 
-    for (var property of properties) {
+    for (var property of allProperties) {
 
-        if (data[property] != undefined) {
+        if (data[property] != undefined)
             delete data[property];
-        }
-        else {
 
+        else if (property.length > 1){
+
+            if (property.length == 2)
+                delete data[property[0]][property[1]];
+            else if (property.length == 3)
+                delete data[property[0]][property[1]][property[2]];
         }
     }
 
-
     return data;
-
 }
 
 function splitProperties(properties) {
