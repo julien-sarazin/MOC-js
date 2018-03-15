@@ -21,7 +21,20 @@ function hasProperties(data, properties) {
 }
 
 function whitelist(data, properties) {
+    for (const i in data) {
+        if (!isInObject(i, properties)) delete data[i];
+    }
+}
 
+function isInObject(i, properties) {
+    let props = [];
+    properties.forEach(prop => {
+        let split = prop.split('.');
+        props.push(split);
+    });
+    return props.find(prop => {
+        prop === i
+    });
 }
 
 function blacklist(data, properties) {
