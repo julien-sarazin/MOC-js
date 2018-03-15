@@ -26,24 +26,55 @@ function hasProperties(data, properties) {
 
 function whitelist(data, properties) {
 
+    function browse(element, field) {
         
-    for (property in element) {
+        for (property in element) {
 
-        var tmp;
+            var tmpA;
 
-        if (field === '') {
-            tmp = property;
+            if (field === '') {
+                tmpA = property;
+            }
+            else {
+                tmpA = field + '.' + property;
+            }
+
+            if (typeof element[property] === 'object' && !properties.includes(tmpA)) {
+
+                var tmpB;
+
+                if (field === '') {
+                    tmpB = property;
+                }
+                else {
+                    tmpB = field + '.' + property;
+                }
+                browse(element[property], tmpB);
+                
+                continue;
+            }
+
+            if (!properties.includes(tmpA)) {
+                let receivedData = data;
+                const array = tmpA.split('.');
+                
+                for (var i = 0; i < array.length; ++i) {
+                    if (i < array.length - 1) {
+                        receivedData = receivedData[array[i]];
+                    } else {
+                        delete receivedData[array[i]];
+                    }
+                }
+            }
         }
-        else {
-            tmp = field + '.' + property;
-        }
-
     }
+    browse(data, '');
 
+    return data;
 }
 
-function blacklist(data, properties) {
 
+function blacklist(data, properties) {
 
 }
 
