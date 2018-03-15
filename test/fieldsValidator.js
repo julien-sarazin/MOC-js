@@ -31,6 +31,12 @@ function hasProperties(data, properties) {
     return missingData;*/
 
 
+    return array;
+
+    //should return missing fields when passed object does not given properties
+
+
+    //should validate each object in the array
 }
 
 function whitelist(data, properties) {
@@ -43,11 +49,18 @@ function whitelist(data, properties) {
     }
     return data;
 
+
 }
 
 function blacklist(data, properties) {
-    //should remove everything from data that is in given properties array
-    let length = properties.length + 1;
+
+
+   //should remove everything from data that is in given properties array
+
+    for(keys in data){
+      
+
+    }
 
     for(let i = 0; i < length; i++){
         delete data[properties[i]];
@@ -60,3 +73,4 @@ module.exports = {
     whitelist,
     blacklist
 };
+
