@@ -1,53 +1,58 @@
 function hasProperty(data, property) {
-    let propArray = property.split('.');
+    const propArray = property.split('.');
     let newData = data;
-    try{
-        propArray.forEach(prop => {
-            newData = newData[prop];
-            if (newData === undefined) throw 0;
-        });
-    } catch(e){
-        return false;
+
+    for(const i in propArray) {
+        let prop = propArray[i];
+        newData = newData[prop];
+        if (newData === undefined) return false;
     }
     return true;
-}
-
-function hasProperties(data, properties) {
-    let notFound = [];
-    const dataIsAnArray = Array.isArray(data);
-    if (dataIsAnArray) {
-        let i = 0;
-        data.forEach(obj => { fillNotFound(obj, dataIsAnArray, properties, notFound, i); i++; })
-    } else {
-        fillNotFound(data, dataIsAnArray, properties, notFound);
-    }
-    return notFound;
 }
 
 function fillNotFound(data, isAnArray, props, array, i) {
     props.forEach(prop => { if (!hasProperty(data, prop)) array.push(isAnArray ? '[' + i + '].' + prop : prop); });
 }
 
-function whitelist(data, properties) {
-    let props = [];
-    properties.forEach(prop => {
-        let split = prop.split('.');
-        split.forEach(e => props.push(e));
-    });
-    for (const i in data) { if (!isInObject(i, props)) delete data[i]; }
+function hasProperties(data, properties) {
+    const notFound = [];
+    const dataIsAnArray = Array.isArray(data);
+
+    if (dataIsAnArray) {
+        let i = 0;
+        data.forEach(obj => { fillNotFound(obj, true, properties, notFound, i); i++; })
+    } else {
+        fillNotFound(data, false, properties, notFound);
+    }
+    return notFound;
 }
 
-function isInObject(i, props) {
-    try{
-        props.forEach(prop => {
-            if (prop === i) {
-                throw true;
-            }
-        });
-    } catch (e) {
-        return true;
+function isInObject(i, props, index) {
+    for (const y in props) {
+        let prop = props[y][index];
+        if (prop && prop === i) return true;
     }
     return false;
+}
+
+function checkAndDelete(data, index, props) {
+    for (const i in data) {
+        if (typeof data[i] !== 'object' && !isInObject(i, props, index)) delete data[i];
+        else if (typeof data[i] === 'object') checkAndDelete(data[i], index + 1, props);
+    }
+}
+
+function whitelist(data, properties) {
+    const props = [];
+
+    for (const i in properties) {
+        let prop = properties[i];
+        let propArray = prop.split('.');
+        props.push(propArray);
+    }
+
+    let index = 0;
+    checkAndDelete(data, index, props);
 }
 
 function blacklist(data, properties) {
@@ -60,11 +65,10 @@ function blacklist(data, properties) {
         else {
             let newData = data;
             let count = 1;
+
             for (const i in propArray) {
                 const prop = propArray[i];
-                if(length === count){
-                    delete newData[prop]
-                }
+                if(length === count) delete newData[prop];
                 newData = newData[prop];
                 count++;
             }
