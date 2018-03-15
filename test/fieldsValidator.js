@@ -5,17 +5,26 @@ function hasProperties(data, properties) {
     const splittedProperties = properties.map(property => property.split('.'));
     const missingProperties = [];
 
-    splittedProperties.forEach((splittedProperty, i) => {
-        let object = data;
-        for (let j = 0, length = splittedProperty.length; j < length; ++j) {
-            let property = splittedProperty[j];
-            if (property in object) {
-                object = object[property];
-            } else if (!missingProperties.includes(properties[i])) {
-                missingProperties.push(properties[i]);
+    (Array.isArray(data)) ? data.forEach((subObject, i) => iterate(subObject, i)) : iterate(data);
+
+    function iterate(obj, indice) {
+        indice = indice === undefined ? undefined : indice;
+
+        splittedProperties.forEach((splittedProperty, i) => {
+            let object = obj;
+            for (let j = 0, length = splittedProperty.length; j < length; ++j) {
+                let property = splittedProperty[j];
+                if (property in object) {
+                    object = object[property];
+                } else {
+                    const missingProperty = indice === undefined ? properties[i] : '[' + indice + '].' + properties[i];
+                    if (!missingProperties.includes(missingProperty)) {
+                        missingProperties.push(missingProperty);
+                    }
+                }
             }
-        }
-    });
+        });
+    }
 
     return missingProperties;
 }
@@ -30,7 +39,7 @@ function whitelist(data, properties) {
             const tempTrace = (trace === '' ? trace + prop : trace + '.' + prop);
 
             if (typeof obj[prop] === 'object' && !properties.includes(tempTrace)) {
-                    iterate(obj[prop], (trace === '' ? trace + prop : trace + '.' + prop));
+                    iterate(obj[prop], tempTrace);
                     continue;
             }
 
