@@ -1,7 +1,3 @@
-function hasProperty(data, property) {
-
-}
-
 function hasProperties(data, properties) {
 
     // var fields = [];
@@ -9,30 +5,29 @@ function hasProperties(data, properties) {
     // for (var property of properties) {
 
     //     //let p = property.split('.', 10);
-    //     console.log(property);
+
     //     if (data[property] === undefined) {
 
     //         fields.push(property);
     //     }   
     // }
-    // console.log("\n missing \n");
-    // console.log(fields);
+
     // return fields;
 
-    allProperties = splitProperties(properties);
+    console.log(data.length);
 
-    for (var property in allProperties) {
-        if (!data.hasOwnProperty(properties)) {
-            console.log("debug if : ", property);
-            hasProperties(object, data[properties]);
-        }
-        else {
-            console.log("debug else ", object);
-        }
+    var fields = [];
+
+    allProperties = splitProperties(properties);
+    //console.log(allProperties);
+
+    for (var property of allProperties) {
+
     }
 
+    return fields;
 
- 
+
 
 }
 
@@ -40,9 +35,9 @@ function whitelist(data, properties) {
 
     var allProperties = splitProperties(properties);
 
-    for (var x in data) {
-        if (!allProperties.find(property => x == property))
-            delete data[x];
+    for (var key in data) {
+        if (!allProperties.find(property => key == property))
+            delete data[key];
     }
     return data;
 }
@@ -50,9 +45,19 @@ function whitelist(data, properties) {
 function blacklist(data, properties) {
 
     var allProperties = splitProperties(properties);
-    for (var x in data) {
-        if (allProperties.find(property => x == property))
-            delete data[x];
+    for (var key in data) {
+
+        for (property of allProperties) {
+            if (key == property) {
+                if (data[key])
+                {
+                    blacklist(data[key], properties);
+                }
+                else {
+                    delete data[key];
+                }
+            }
+        }
     }
 
     return data;
@@ -71,7 +76,6 @@ function splitProperties(properties) {
 }
 
 module.exports = {
-    hasProperty,
     hasProperties,
     whitelist,
     blacklist
