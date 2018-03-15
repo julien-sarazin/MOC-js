@@ -1,0 +1,7 @@
+{
+  "port": 8080,
+  "db_uri": "mongodb://localhost:27017/foocar",
+  "secret": "JsfdvsD$T%$SHRTSfzxv&^#$%",
+  "logs_path": "logs",
+  "simultaneousLoginLimit": 3
+}
