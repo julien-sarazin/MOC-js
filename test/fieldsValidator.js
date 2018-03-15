@@ -1,5 +1,3 @@
-function hasProperty(data, property) {}
-
 function hasProperties(data, properties) {
   let nok = 0;
   var missingFiled = [];
@@ -21,6 +19,7 @@ function hasProperties(data, properties) {
   } else {
     return stock;
   }*/
+
 
   properties.forEach(property => {
     if(!(data.hasOwnProperty(property))){
@@ -64,7 +63,6 @@ function blacklist(data, properties) {
 
 
 module.exports = {
-    hasProperty,
     hasProperties,
     whitelist,
     blacklist
