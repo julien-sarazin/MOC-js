@@ -4,7 +4,7 @@
   "description": "Everything related to the courses given to the MOC 3A about nodeJS.",
   "main": "playground.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "body-parser": "1.18.2",
     "express": "4.16.2",
     "jsonwebtoken": "8.2.0",
+    "mocha": "^5.0.4",
     "mongoose": "4.13.8",
     "mongoose-timestamp": "^0.6.0",
     "sha1": "1.1.1"
