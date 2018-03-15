@@ -1,4 +1,35 @@
 function hasProperties(data, properties) {
+    let newArr = new Array();
+    //for (let key in objData) {}
+    for(let i =0; i<properties.length; i++) {
+        if (!(properties[i] in data)) {
+            newArr.push(properties[i]);
+        }
+    }
+
+     console.log(data.field);
+
+    console.log(Object.keys(data));
+    let dataProperty = new Array();
+    dataProperty = Object.keys(data);
+    for(let i=0; i<dataProperty.length; i++){
+        console.log(data[dataProperty[i]]);
+        if(data[dataProperty] !== 0 || data[dataProperty] !== false){
+            console.log('dsfdfsdfsfdsdsf');
+            dataProperty = Object.keys(data[dataProperty]);
+        }
+    }
+    console.log(Object.keys(data));
+
+
+    return newArr;
+
+
+
+
+
+
+    /*
     let newProperty = new Array();
     for(let i =0; i<properties.length; i++){
         //console.log(typeof(properties[i]));
@@ -13,10 +44,39 @@ function hasProperties(data, properties) {
         }
     }
     console.log(newProperty);
+    //console.log(data['field']);
+    let arrayToReturn = new Array();
+    function checkIfPropertyExist(objData, propertyToCheck){
+        if(!objData.hasOwnProperty(propertyToCheck)) {
+            for (let key in objData) {
+                if(objData[key].hasOwnProperty(propertyToCheck)){
+                    return;
+                } else {
+                    //console.log('key :', key);
+                    //console.log('property :', propertyToCheck);
+                    //console.log('type', typeof(objData[key]));
+                    if (typeof(objData[key]) === "object") {
+                        //console.log('Dans le recurse');
+                        //console.log(objData[key]);
+                        checkIfPropertyExist(objData[key], propertyToCheck);
+                    } else {
+                        arrayToReturn.push(propertyToCheck);
+                    }
+                }
+            }
+        } else
+            return;
+    }
 
-    let arrayToReturn = new array();
-    if(data.hasOwnProperty())
-    /*
+    for(let i=0; i<newProperty.length; i++){
+        console.log('property to check', newProperty[i]);
+        checkIfPropertyExist(data, newProperty[i])
+    }
+    return arrayToReturn;
+
+
+
+
     let arr = new Array();
 
     for(let i=0; i<properties.length; i++){
@@ -65,18 +125,6 @@ function whitelist(data, properties) {
     }
     console.log(arr);
     listArr(data, arr);
-    /*
-        let nbr = properties.length + 1;
-        for(let i=0; i<nbr; i++) {
-            for (keys in data) {
-                // The key is key
-                // The value is data[key]
-                if (keys === properties[i])
-                    delete data[keys];
-
-            }
-        }
-    */
 }
 
 function blacklist(data, properties) {
