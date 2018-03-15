@@ -3,7 +3,7 @@ const sut = require('./fieldsValidator');
 module.exports = describe('fields', () => {
 
     describe('hasProperties', () => {
-        it('should return true when passed object contains given properties', () => {
+        it('should return an Array when passed object contains given properties', () => {
             sut.hasProperties(
                 {
                     field: {
