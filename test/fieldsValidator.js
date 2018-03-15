@@ -5,23 +5,30 @@ function hasProperties(data, properties) {
     const splittedProperties = properties.map(property => property.split('.'));
     const missingProperties = [];
 
-    (Array.isArray(data)) ? data.forEach((subObject, i) => iterate(subObject, i)) : iterate(data);
+    (Array.isArray(data)) ? 
+        data.forEach((object, i) => findMissingProperties(object, i)) : 
+        findMissingProperties(data);
 
-    function iterate(obj, indice) {
-        indice = indice === undefined ? undefined : indice;
+    function findMissingProperties(object, objectPosition) {
+        objectPosition = objectPosition === undefined ? undefined : objectPosition;
 
-        splittedProperties.forEach((splittedProperty, i) => {
-            let object = obj;
+        splittedProperties.forEach((splittedProperty, splittedIndice) => {
+            let tempObject = object;
+            
             for (let j = 0, length = splittedProperty.length; j < length; ++j) {
                 let property = splittedProperty[j];
-                if (property in object) {
-                    object = object[property];
-                } else {
-                    const missingProperty = indice === undefined ? properties[i] : '[' + indice + '].' + properties[i];
-                    if (!missingProperties.includes(missingProperty)) {
-                        missingProperties.push(missingProperty);
-                    }
+                
+                if (property in tempObject) {
+                    tempObject = tempObject[property];
+                    continue;
                 }
+
+                const missingProperty = objectPosition === undefined ? 
+                    properties[splittedIndice] : 
+                    '[' + objectPosition + '].' + properties[splittedIndice];
+                    
+                if (!missingProperties.includes(missingProperty))
+                    missingProperties.push(missingProperty);
             }
         });
     }
@@ -32,26 +39,26 @@ function hasProperties(data, properties) {
 function whitelist(data, properties) {
     const splittedProperties = properties.map(property => property.split('.'));
     
-    iterate(data, '');
+    recursiveWhitelist(data, '');
 
-    function iterate(obj, trace) {
-        for (prop in obj) {
-            const tempTrace = (trace === '' ? trace + prop : trace + '.' + prop);
+    function recursiveWhitelist(object, trace) {
+        for (property in object) {
+            const tempTrace = trace === '' ? trace + property : trace + '.' + property;
 
-            if (typeof obj[prop] === 'object' && !properties.includes(tempTrace)) {
-                    iterate(obj[prop], tempTrace);
-                    continue;
+            if (typeof object[property] === 'object' && !properties.includes(tempTrace)) {
+                recursiveWhitelist(object[property], tempTrace);
+                continue;
             }
 
             if (!properties.includes(tempTrace)) {
-                let object = data;
+                let tempObject = data;
                 const arrayTrace = tempTrace.split('.');
                 
                 for (let i = 0; i < arrayTrace.length; ++i) {
                     if (i < arrayTrace.length - 1) {
-                        object = object[arrayTrace[i]];
+                        tempObject = tempObject[arrayTrace[i]];
                     } else {
-                        delete object[arrayTrace[i]];
+                        delete tempObject[arrayTrace[i]];
                     }
                 }
             }
@@ -64,25 +71,25 @@ function whitelist(data, properties) {
 function blacklist(data, properties) {
     const splittedProperties = properties.map(property => property.split('.'));
 
-    iterate(data, '');
+    recursiveBlacklist(data, '');
 
-    function iterate(obj, trace) {
-        for (prop in obj) {
-            if (typeof obj[prop] === 'object') {
-                iterate(obj[prop], (trace === '' ? trace + prop : trace + '.' + prop));
+    function recursiveBlacklist(object, trace) {
+        for (property in object) {
+            if (typeof object[property] === 'object') {
+                recursiveBlacklist(object[property], (trace === '' ? trace + property : trace + '.' + property));
                 continue;
             }
     
-            const tempTrace = (trace === '' ? trace + prop : trace + '.' + prop);
+            const tempTrace = trace === '' ? trace + property : trace + '.' + property;
             if (properties.includes(tempTrace)) {
-                let object = data;
+                let tempObject = data;
                 const arrayTrace = tempTrace.split('.');
                 
                 for (let i = 0; i < arrayTrace.length; ++i) {
                     if (i < arrayTrace.length - 1) {
-                        object = object[arrayTrace[i]];
+                        tempObject = tempObject[arrayTrace[i]];
                     } else {
-                        delete object[arrayTrace[i]];
+                        delete tempObject[arrayTrace[i]];
                     }
                 }
             }
@@ -91,7 +98,6 @@ function blacklist(data, properties) {
 
     return data;
 }
-
 
 module.exports = {
     hasProperties,
