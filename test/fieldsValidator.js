@@ -2,8 +2,6 @@ function hasProperties(data, properties) {
   let nok = 0;
   var missingFiled = [];
 
-  var props = properties.split('.');
-
   /*for(var property in data){
     if(data.hasOwnProperty(property)){
       ok += 1;
@@ -25,26 +23,19 @@ function hasProperties(data, properties) {
       nok += 1;
     }
   });
-  props.forEach(property => {
-    if((!data[props])){
-
-    }
-  });
 
   if(nok !== 0){
     return missingFiled;
   }
-
   return [];
 }
 
 function whitelist(data, properties) {
 
   for(var property in data){
-    if(!(properties.includes(property))){
+    if(!(properties.includes(property))) {
       delete data[property];
     }
-    delete data[property];
   }
 
   return data;
@@ -52,11 +43,12 @@ function whitelist(data, properties) {
 
 function blacklist(data, properties) {
 
-  for(var property in data){
-    if(data.hasOwnProperty(property)) {
+  for(let property in data){
+    if(properties[data[property]] !== null ) {
       delete data[property];
     }
   }
+
   return data;
 }
 
