@@ -23,8 +23,26 @@ function hasProperties(data, properties) {
 }
 
 function whitelist(data, properties) {
-    //foreach
+    //foreach check if multiple properties
     //foreach property if !included keep in array
+    let newProperties = [];
+    properties.forEach(property => {
+        let propies = property.split('.');
+        if (propies.length > 1) {
+            newProperties.push(propies[0]);
+            propies.shift();
+            propies = propies.join('.');
+            data[property] = whitelist(data[property], [propies]);
+        } else {
+            newProperties.push(property);
+        }
+    });
+
+    for (let key in data) {
+        if(data.hasOwnProperty(key))
+            if(!newProperties.includes(key))
+                delete data[key];
+    }
 
     return data;
 }
