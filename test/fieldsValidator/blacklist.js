@@ -5,7 +5,11 @@ module.exports = server => {
 	
 	return (req, res, next) => {
 		function blacklist(data, properties) {
-			
+			 for(let property in data){
+		        if(properties.includes(property))
+		            delete data[property];
+		    }
+		    return data;
 		}
 	}
 	
