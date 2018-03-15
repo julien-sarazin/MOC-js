@@ -1,7 +1,6 @@
 module.exports = server => {
 
-	return (req, res, next) => {
-		function hasProperties(data, properties) {
+		return (data, properties) => {
 		    let containGivenProperties = true;
 		    let array = [];
 
@@ -9,6 +8,6 @@ module.exports = server => {
 
 		    return containGivenProperties === true ? [] : array;
 		}
-	}
+	
 	
 };
