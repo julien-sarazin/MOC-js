@@ -30,35 +30,58 @@ function whitelist(data, properties) {
         
         for (property in element) {
 
-            var tmpA;
-
-            if (field === '') {
-                tmpA = property;
-            }
-            else {
-                tmpA = field + '.' + property;
-            }
+            var tmpA = findProperties(field, property);
 
             if (typeof element[property] === 'object' && !properties.includes(tmpA)) {
 
-                var tmpB;
-
-                if (field === '') {
-                    tmpB = property;
-                }
-                else {
-                    tmpB = field + '.' + property;
-                }
+                var tmpB = findProperties(field, property)
                 browse(element[property], tmpB);
-                
+
                 continue;
             }
 
             if (!properties.includes(tmpA)) {
+                
                 let receivedData = data;
                 const array = tmpA.split('.');
                 
                 for (var i = 0; i < array.length; ++i) {
+                    if (i < array.length - 1) {
+                        receivedData = receivedData[array[i]];
+                    } else {
+                        delete receivedData[array[i]];
+                    }
+                }
+            }
+        }
+    }
+
+    browse(data, '');
+
+    return data;
+}
+
+function blacklist(data, properties) {
+
+    function browse(element, field) {
+
+        for (property in element) {
+
+            if (typeof element[property] === 'object') {
+
+                var tmpA = findProperties(field, property)
+                browse(element[property], tmpA);
+
+                continue;
+            }
+    
+            var tmpB = findProperties(field, property);
+
+            if (properties.includes(tmpB)) {
+                let receivedData = data;
+                const array = tmpB.split('.');
+                
+                for (let i = 0; i < array.length; ++i) {
                     if (i < array.length - 1) {
                         receivedData = receivedData[array[i]];
                     } else {
@@ -73,9 +96,18 @@ function whitelist(data, properties) {
     return data;
 }
 
+function findProperties(field, property) {
 
-function blacklist(data, properties) {
+    var tmp;
 
+    if (field === '') {
+        tmp = property;
+    }
+    else {
+        tmp = field + '.' + property;
+    }
+
+    return tmp;
 }
 
 
