@@ -1,4 +1,22 @@
 function hasProperties(data, properties) {
+    let newProperty = new Array();
+    for(let i =0; i<properties.length; i++){
+        //console.log(typeof(properties[i]));
+        if(properties[i].match(/\./g)){
+            let proper = properties[i].split('.');
+            for(let j =0; j<proper.length; j++){
+                newProperty.push(proper[j]);
+            }
+        } else {
+            //listArr(data, properties[i]);
+            newProperty.push(properties[i]);
+        }
+    }
+    console.log(newProperty);
+
+    let arrayToReturn = new array();
+    if(data.hasOwnProperty())
+    /*
     let arr = new Array();
 
     for(let i=0; i<properties.length; i++){
@@ -7,85 +25,91 @@ function hasProperties(data, properties) {
     }
 
     return arr;
+    */
+
+
+
 }
 
-function whitelist(data, properties) {
-    let nbr = properties.length + 1;
-    for(let i=0; i<nbr; i++) {
-        for (keys in data) {
-            // The key is key
-            // The value is data[key]
-            if (keys === properties[i])
-                delete data[keys];
 
+
+
+
+function whitelist(data, properties) {
+    function listArr(obj, proper){
+        for (let key in obj) {
+            console.log('key :', key);
+            console.log('property :', proper);
+            if(!proper.includes(key))
+                delete obj[key];
+            //console.log(key, obj[key]);
+            //console.log('type', typeof(obj[key]));
+            if(typeof(obj[key]) === 'object'){
+                listArr(obj[key], proper);
+            }
         }
     }
+
+    let arr = new Array();
+    for(let i =0; i<properties.length; i++){
+        //console.log(typeof(properties[i]));
+        if(properties[i].match(/\./g)){
+            let proper = properties[i].split('.');
+            for(let j =0; j<proper.length; j++){
+                arr.push(proper[j]);
+            }
+        } else {
+            //listArr(data, properties[i]);
+            arr.push(properties[i]);
+        }
+    }
+    console.log(arr);
+    listArr(data, arr);
+    /*
+        let nbr = properties.length + 1;
+        for(let i=0; i<nbr; i++) {
+            for (keys in data) {
+                // The key is key
+                // The value is data[key]
+                if (keys === properties[i])
+                    delete data[keys];
+
+            }
+        }
+    */
 }
 
 function blacklist(data, properties) {
     function listArr(obj, proper){
         for (let key in obj) {
-            console.log(key);
+            //console.log('key :', key);
+            console.log('property :', proper);
             if(proper.includes(key))
                 delete obj[key];
             //console.log(key, obj[key]);
             //console.log('type', typeof(obj[key]));
             if(typeof(obj[key]) === 'object'){
-                listArr(obj[key]);
+                listArr(obj[key], proper);
             }
         }
     }
-    //listArr(data, properties);
 
+    let arr = new Array();
     for(let i =0; i<properties.length; i++){
             //console.log(typeof(properties[i]));
             if(properties[i].match(/\./g)){
                 let proper = properties[i].split('.');
-                //console.log(proper[proper.length-1]);
-                listArr(data, proper[proper.length-1]);
+                console.log(proper[proper.length-1]);
+                //listArr(data, proper[proper.length-1]);
+                arr.push(proper[proper.length-1]);
             } else {
-                //console.log(properties[i]);
-                listArr(data, properties[i]);
+                console.log(properties[i]);
+                //listArr(data, properties[i]);
+                arr.push(properties[i]);
             }
-
     }
-    /*
-    function getLastProper(obj){
-        for (let key in obj) {
-            console.log(obj);
-            //if (typeof(obj[key]) === 'object') {
-            if(properties[i].match('/./')) {
-                //listArr(obj[key]);
-                console.log('dsdfsdf');
-            }
-        }
-    }
-*/
-    /*
-    function recursivelyIterateProperties(data, property) {
-
-        if (data instanceof Array) {
-            for (let i = 0; i < data.length; ++i) {
-                recursivelyIterateProperties(data[i])
-            }
-        }
-        else if (typeof(data) === 'object') {
-            for (let proper in data) {//
-                 console.log(proper);
-                console.log('a enlever ' + property);
-                if(proper = property)
-                    delete data[property];
-                if (!(typeof(data[proper]) === 'string')) {
-                    recursivelyIterateProperties(data[proper]);
-                }
-            }
-        }
-    }
-
-    for(let i=0; i<properties.length; i++) {
-        recursivelyIterateProperties(data, properties[i]);
-    }
-    */
+    console.log(arr);
+    listArr(data, arr);
 }
 
 
