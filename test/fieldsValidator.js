@@ -1,16 +1,12 @@
 function hasProperties(data, properties) {
 	let tab = [];
-	console.log(".");
-	//console.log(data);
+	let dataKeys = Object.keys(data);
+	console.log(dataKeys);
 	for(let prop of properties){
-		console.log(data + '.' + prop + ' = ' + data[prop]);
-		console.log('prop = ' + prop);
-		//console.log(data[prop]);
-
-		//console.log('prop = ' + prop);
-
-		if (data[prop] === undefined)
-			tab.push(prop);
+		prop.split('.');
+		console.log("---");
+		console.log(prop);
+		console.log("---");
 	}
 	return(tab);
 }
