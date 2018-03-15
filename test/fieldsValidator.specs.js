@@ -19,7 +19,7 @@ module.exports = describe('fields', () => {
                 .should.deep.equal([]);
         });
 
-        it('should return missing fields when passed object does not given properties', () => {
+        it('should return missing fields when passed object does not give properties', () => {
             let requiredFields = ['field', 'field2'];
             sut.hasProperties(
                 {
