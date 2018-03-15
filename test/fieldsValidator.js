@@ -7,6 +7,7 @@ function hasProperties(data, properties) {
                return [];
            let newData = data;
 
+
            for(var i = 1; i < propies.length; i+=1){
                newData = newData[propies[i - 1]] ;
                 if(!newData.hasOwnProperty(propies[i])) {
@@ -23,8 +24,6 @@ function hasProperties(data, properties) {
 }
 
 function whitelist(data, properties) {
-    //foreach check if multiple properties
-    //foreach property if !included keep in array
     let newProperties = [];
     properties.forEach(property => {
         let propies = property.split('.');
@@ -48,22 +47,26 @@ function whitelist(data, properties) {
 }
 
 function blacklist(data, properties) {
-    properties.forEach(prop => {
-        const propies = prop.split('.');
-        let newData = data;
-        propies.forEach(key => {
-            if (newData.hasOwnProperty(key))
-                if (key == propies[propies.length - 1])
-                    delete newData[key];
-                else
-                    newData = newData[key];
-            }
-        );
+    let newProperties = [];
+
+    properties.forEach(property => {
+       let propies = property.split('.');
+       if (propies.length > 1) {
+           let p = propies[0];
+           propies.shift();
+           propies  = propies.join('.');
+           data[p] = blacklist(data[p], [propies]);
+       } else
+           newProperties.push(property);
+    });
+
+    newProperties.forEach(property => {
+       if(data.hasOwnProperty(property))
+           delete data[property];
     });
 
     return data;
 }
-
 
 module.exports = {
     hasProperties,
