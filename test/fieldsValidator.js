@@ -1,8 +1,5 @@
-function hasProperty(data, property) {
-
-}
-
 function hasProperties(data, properties) {
+    return {}
 
 }
 
@@ -16,7 +13,6 @@ function blacklist(data, properties) {
 
 
 module.exports = {
-    hasProperty,
     hasProperties,
     whitelist,
     blacklist

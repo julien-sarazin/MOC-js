@@ -1,3 +1,6 @@
+const chai = require('chai');
+const should = chai.should();
+
 const sut = require('./fieldsValidator');
 
 module.exports = describe('fields', () => {

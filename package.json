@@ -4,7 +4,7 @@
   "description": "Everything related to the courses given to the MOC 3A about nodeJS.",
   "main": "playground.js",
   "scripts": {
-    "test": "mocha --require test"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
