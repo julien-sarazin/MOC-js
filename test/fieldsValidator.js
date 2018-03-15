@@ -22,9 +22,10 @@ function blacklist(data, properties) {
 function loopInProperty(object, property){
     let str = property.split('.');
     let i;
-    let o; //same as Object in Param
+    let obj = object;
     for(i = 1; i < str.length; i++){
-        if(str in object)
+        if(!(str[i] in obj))
+            obj = obj[str[i]];
             return false;
     }
     return true;
