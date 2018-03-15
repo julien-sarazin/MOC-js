@@ -25,13 +25,21 @@ function blacklist(data, properties) {
   for (let prop of properties) {
     prop = prop.split(".");
     if (prop.length > 1) {
-      for(let i = prop.length-1; i > 0; i--){
-        delete data[prop[i]];
+      //for(let i = prop.length-1; i > 0; i--){
+      let dataBis = "";
+      for(i=0; i<prop.length; i++){
+
+        console.log(dataBis);
+
+      }
+      console.log(data.foo);
+      delete data +dataBis;
+      //}
+    }else{
+      if ((prop in  data)) {
+        delete data[prop];
       }
     }
-      if ((prop in  data)) {
-          delete data[prop];
-      }
   }
 }
 
