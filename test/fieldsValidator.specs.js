@@ -7,14 +7,14 @@ module.exports = describe('fields', () => {
 
     describe('hasProperties', () => {
         it('should return an Array when passed object contains given properties', () => {
-            const requiredFields = ['field.foo.bar', 'single', 'booboo'];
+            const requiredFields = ['field.foo.toto', 'single', 'dobby.has.some'];
             sut.hasProperties(
                 {
                     single: 0,
                     booboo: false,
                     field: {
                         foo: {
-                            bar: 'hello world'
+                            toto: 'hello world'
                         }
                     },
                     dobby: {
@@ -36,6 +36,18 @@ module.exports = describe('fields', () => {
                 },
                 requiredFields)
                 .should.deep.equal(['xy', 'db.uri']);
+        });
+
+        it('should validate each object in the array ', () => {
+            const requiredFields = ['field', 'xy', 'db.uri'];
+            sut.hasProperties([
+                    { field: 0 },
+                    { field: 0 },
+                    { xy: 'bar', balo: 'e' },
+                    { field: 0, xy: 17, db: { uri: 'mongodb://' } },
+                ],
+                requiredFields)
+                .should.deep.equal(['[0].xy', '[0].db.uri', '[1].xy', '[1].db.uri', '[2].field', '[2].db.uri']);
         });
     });
 
