@@ -3,24 +3,20 @@ function hasProperties(data, properties) {
         return properties;
 
     const props = split(properties);
-    const missings = [];
+    const missings = [];    
 
-    
-    props.forEach(function(prop, i) {
-        
-        var receivedData = data;
-
-        for (var j = 0, lenght = prop.length; j < length; j++) {
+    props.forEach((prop, i) => {
+        let receivedData = data;
+        for (let j = 0, length = prop.length; j < length; ++j) {
             let property = prop[j];
             if (property in receivedData) {
-                property = prop[property];
-            }
-            else if (!missings.includes(props[i])) {
-                missings.push(props[i]);
+                receivedData = receivedData[property];
+            } else if (!missings.includes(properties[i])) {
+                missings.push(properties[i]);
             }
         }
     });
-    
+
     function split(properties) {
         return properties.map(property => property.split('.'));
     }
@@ -29,11 +25,25 @@ function hasProperties(data, properties) {
 }
 
 function whitelist(data, properties) {
-    
+
+        
+    for (property in element) {
+
+        var tmp;
+
+        if (field === '') {
+            tmp = property;
+        }
+        else {
+            tmp = field + '.' + property;
+        }
+
+    }
+
 }
 
 function blacklist(data, properties) {
-    
+
 
 }
 
