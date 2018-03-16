@@ -48,11 +48,11 @@ Sujet Projet: Recherche & Development
 ----------------------------------------------------
 
 Par groupe de deux ou de facon individuel, proposez, implementez et justifiez le sujet developpe en cours via des technologies differentes.
-Ce qui signifie :
-    - Pas d'express,
-    - Pas de Mongoose,
-    - Pas de Travis,
-    - Pas d'Heroku
+Ce qui signifie :  
+    - Pas d'express,  
+    - Pas de Mongoose,  
+    - Pas de Travis,  
+    - Pas d'Heroku  
     
     
 L'objectif de votre presentation sera de mettre en avant vos justifications, par la demonstration du code qui aura ete implemente, l'utilisation des routes 
