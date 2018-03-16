@@ -22,11 +22,9 @@ Everything related to the courses given to the MOC 3A about nodeJS.
   - orm/odm,  
   - REST,  
   
-4) Deploiment continu
+4) Integration/Deploiement continu
 --------------------
-  -> heroku + ???
-
-
+  -> Travis + Heroku
 
 
 Exercice
@@ -43,3 +41,19 @@ Votre API doit maintenant gerer des trajets `Trip`.
   - Evidement seul l'utilisateur proprietaire du vehicule servant au trajet peut changer le status de celui-ci.
   - Un utilisateur ne peut pas supprimer une voiture qui est associee a un trajet en cours.
   - Une suppression d'un vehicule entrainera la supression des trajets associees non demarres.
+  
+  
+  
+Sujet Projet: Recherche & Development
+----------------------------------------------------
+
+Par groupe de deux ou de facon individuel, proposez, implementez et justifiez le sujet developpe en cours via des technologies differentes.
+Ce qui signifie :
+    - Pas d'express,
+    - Pas de Mongoose,
+    - Pas de Travis,
+    - Pas d'Heroku
+    
+    
+L'objectif de votre presentation sera de mettre en avant vos justifications, par la demonstration du code qui aura ete implemente, l'utilisation des routes 
+pre-ecrites dans POSTMAN pour valider la partie fonctionelle, ainsi qu'une etude de chacune des technologies choisies.
