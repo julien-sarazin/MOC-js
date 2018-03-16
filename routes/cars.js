@@ -7,7 +7,6 @@ module.exports = server => {
         )
 
         .get('/',
-            server.middlewares.ensureAuthenticated,
             server.controllers.cars.list
         )
 
